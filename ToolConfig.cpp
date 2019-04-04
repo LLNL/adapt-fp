@@ -352,7 +352,7 @@ std::vector<ToolAction>& ToolConfig::getActions() {
 
 bool ToolConfig::saveConfig(std::string fileName) {
     std::ofstream out(fileName);
-    if (out ==  0) {
+    if (!out.is_open()) {
         return false;
     }
     json config;
