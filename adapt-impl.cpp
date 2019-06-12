@@ -296,7 +296,7 @@ void AD_report()
     }
 
     //save json config
-    config.saveConfig("craft_recommend.json");
+    config.saveConfig("adapt_recommend.json");
 
 #define DUMP_VEC(X)     std::cout << #X << std::endl; \
                         for (auto& p: X) { \
