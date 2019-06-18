@@ -14,6 +14,6 @@ int main()
     o = p + l;
     AD_DEPENDENT(o, "o", 1e-8);
     AD_report();
-    printf("%.8g\n", AD_value(o));    // should print 1.0000001
+    printf("%.8f\n", AD_value(o));    // should print 1.00000006
     return 0;
 }
