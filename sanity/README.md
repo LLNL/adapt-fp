@@ -3,7 +3,8 @@
 This is a very trivial example just to show how to use ADAPT on the most basic
 of programs. All it does is add two numbers such that it is sufficient to store
 one of them in single precision but the other must be stored in double
-precision.
+precision. The result is very close to 1.0000000596[...], which is the largest
+number not representable in single precision.
 
 The example is provided as four source files and a Makefile for automation.
 

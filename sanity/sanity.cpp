@@ -2,7 +2,7 @@
 
 double p = 1.00000003;      // must be double
 double l = 0.00000003;      // can be float
-double o;                   // can also be float (but not so interesting)
+double o;
 
 int main()
 {

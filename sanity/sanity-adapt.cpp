@@ -4,7 +4,7 @@
 
 AD_real p = 1.00000003;      // must be double
 AD_real l = 0.00000003;      // can be float
-AD_real o;                   // can also be float (but not so interesting)
+AD_real o;
 
 int main()
 {
