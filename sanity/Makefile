@@ -1,5 +1,5 @@
 TARGETS=sanity sanity-float sanity-adapt sanity-mixed
-CXXFLAGS+=-g -O0 -Wall -Wno-unknown-pragmas
+CXXFLAGS+=-g -O0 -Wall
 ADAPTFLAGS=--std=c++11 -I$(CODIPACK_HOME)/include -I../
 
 all: $(TARGETS)
@@ -27,16 +27,16 @@ diff:
 	-@echo ""
 
 sanity: sanity.cpp
-	$(CXX) -o $@ $^
+	$(CXX) $(CXXFLAGS) -o $@ $^
 
 sanity-float: sanity-float.cpp
-	$(CXX) -o $@ $^
+	$(CXX) $(CXXFLAGS) -o $@ $^
 
 sanity-adapt: sanity-adapt.cpp
-	$(CXX) $(ADAPTFLAGS) -o $@ $^
+	$(CXX) $(CXXFLAGS) $(ADAPTFLAGS) -o $@ $^
 
 sanity-mixed: sanity-mixed.cpp
-	$(CXX) -o $@ $^
+	$(CXX) $(CXXFLAGS) -o $@ $^
 
 clean:
 	rm -rf $(TARGETS)
