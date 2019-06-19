@@ -60,13 +60,14 @@ void do_fun ()
 
 int main (int argc, char **argv)
 {
+    AD_begin();
     AD_INTERMEDIATE(h, "h");
     AD_INTERMEDIATE(t1, "t1");
     AD_INTERMEDIATE(s1, "s1");
     AD_INTERMEDIATE(d1, "d1");
 
-    AD_begin();
     do_fun();
+
     AD_DEPENDENT(s1, "s1", EPS);
     AD_report();
 

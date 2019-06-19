@@ -25,12 +25,12 @@
 int main()
 {
     AD_real sum = 0.0;
-    AD_INTERMEDIATE(sum, "sum");
     AD_real tmp;
     AD_real acc;
     int i, j;
 
     AD_begin();
+    AD_INTERMEDIATE(sum, "sum");
 
     for (i=0; i<OUTER; i++) {
         acc = 0.0;
