@@ -104,6 +104,13 @@ double AD_value(double var);
 void AD_enable_source_aggregation();
 
 /*
+ * Enable taking the absolute value of errors during variable analysis. Useful
+ * when the program contains long chains of self-assignments (i.e., reads and
+ * writes to the same variable). Must be called before AD_report.
+ */
+void AD_enable_absolute_value_error();
+
+/*
  * Register an independent (input) variale.
  */
 void AD_independent(AD_real &var, std::string label);

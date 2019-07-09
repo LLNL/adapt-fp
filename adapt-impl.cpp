@@ -45,6 +45,9 @@ static unsigned long indCount = 0;
 // flag indicating whether source info should be integrated into variable labels
 static bool useSourceInfo = false;
 
+// flag indicating whether error should be absolute or signed
+static bool useAbsoluteValueError = false;
+
 // maps for storing independent/dependent variables
 // (and tolerable errors for the latter)
 static std::unordered_map<unsigned long, AD_index>      indIdxs;
@@ -91,6 +94,11 @@ double AD_value(double var)
 void AD_enable_source_aggregation()
 {
     useSourceInfo = true;
+}
+
+void AD_enable_absolute_value_error()
+{
+    useAbsoluteValueError = true;
 }
 
 void AD_independent(AD_real &var, std::string label)
@@ -208,6 +216,9 @@ void AD_report()
             double partial = tape.getGradient(ind.second);
             double value = indVals[input];
             double varInputError = value - (float) value;
+            if (useAbsoluteValueError) {
+                varInputError = fabs(varInputError);
+            }
 
             // instance count (aggregated by variable) -- only necessary once
             if (depLabels.size() == 1) {
