@@ -30,6 +30,8 @@ int main()
     int i, j;
 
     AD_begin();
+    AD_enable_absolute_value_error();   /* use absolute error because of repeated
+                                           contributions from sum to itself */
     AD_INTERMEDIATE(sum, "sum");
 
     for (i=0; i<OUTER; i++) {
