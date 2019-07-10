@@ -1,7 +1,7 @@
 TARGETS=sum2pi_x sum2pi_x-float sum2pi_x-adapt sum2pi_x-mixed
 CXXFLAGS+=-g -O3 -Wall
 LDFLAGS=-lm
-ADAPTFLAGS=--std=c++11 -I$(CODIPACK_HOME)/include -I../
+ADAPTFLAGS=--std=c++11 -I$(CODIPACK_HOME)/include -I../ -DCODI_ZeroAdjointReverse=0
 
 all: $(TARGETS)
 
