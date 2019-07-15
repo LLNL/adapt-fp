@@ -1,9 +1,9 @@
-# Sanity example
+# Sum2pi_x example
 
-This is a an example from CRAFT
-(https://github.com/crafthpc/craft/tree/master/demo/sum2pi_x).  The program
-calculates PI*X, where X is hard-coded for simplicity. The program uses an
-unnecessarily computation-heavy method of calculating PI*X for demonstration
+This is an example from [CRAFT](https://github.com/crafthpc/craft/tree/master/demo/sum2pi_x).
+The program
+calculates PI\*X, where X is hard-coded for simplicity. The program uses an
+unnecessarily computation-heavy method of calculating PI\*X for demonstration
 purposes. There is an inner loop that sums to PI, and then an outer loop adds
 that to itself X times. The sensitivity of the test at the end is adjustable
 using the #define statements at the top. With the default value, double
