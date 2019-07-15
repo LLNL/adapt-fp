@@ -1,6 +1,6 @@
-# Sanity example
+# Arclength example
 
-This is a an example from [Precimonious](https://github.com/corvette-berkeley/precimonious).
+This is an example from [Precimonious](https://github.com/corvette-berkeley/precimonious).
 The program approximates an integral using Simpson's rule.
 
 The example is provided as four source files and a Makefile for automation.
