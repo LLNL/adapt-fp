@@ -55,6 +55,7 @@ static std::unordered_map<unsigned long, double>        indVals;
 static std::unordered_map<unsigned long, std::string>   indLabels;
 static std::unordered_map<std::string, AD_real*>        depVars;
 static std::unordered_map<std::string, double>          depErrs;
+static std::unordered_map<std::string, bool>          accVars;
 
 void AD_begin()
 {
@@ -132,10 +133,14 @@ void AD_intermediate(AD_real &var, std::string label)
     indVals[indCount++] = var.value();
 }
 
-void AD_intermediate(AD_real &var, std::string label, std::string source)
+void AD_intermediate(AD_real &var, std::string label, std::string source, bool isAccVar=false)
 {
     if (useSourceInfo) {
         label = label + ":" + source;
+    }
+    if (isAccVar) {
+	    //std::cout << "isAccVar why > " << label << "\n";
+            accVars[label] = true;
     }
     AD_intermediate(var, label);
 }
@@ -193,6 +198,7 @@ void AD_report()
     // dependent labels and tolerated errors
     std::vector<std::string> depLabels;
     std::vector<double> tolError;
+    std::vector<double> totalError;
 
     // loop over all registered dependent (output) variables
     for (auto& dep : depVars) {
@@ -200,6 +206,7 @@ void AD_report()
         // save label
         depLabels.push_back(dep.first);
         tolError.push_back(fabs(depErrs[dep.first]));
+        totalError.push_back(0.0);
 
         // perform a clean analysis with the given output variable
         tape.clearAdjoints();
@@ -214,9 +221,6 @@ void AD_report()
             double partial = tape.getGradient(ind.second);
             double value = indVals[input];
             double varInputError = value - (float) value;
-            if (useAbsoluteValueError) {
-                varInputError = fabs(varInputError);
-            }
 
             // instance count (aggregated by variable) -- only necessary once
             if (depLabels.size() == 1) {
@@ -241,7 +245,13 @@ void AD_report()
             while (varOutputError[inputLabel].size() < depLabels.size()) {
                 varOutputError[inputLabel].push_back(0.0);
             }
-            varOutputError[inputLabel][depLabels.size()-1] += partial * varInputError;
+            if (useAbsoluteValueError) {
+            	varOutputError[inputLabel][depLabels.size()-1] += fabs(partial * varInputError);
+	    } else if (accVars.find(inputLabel) == accVars.end()) {
+            	varOutputError[inputLabel][depLabels.size()-1] += partial * varInputError;
+	    } else {
+            	varOutputError[inputLabel][depLabels.size()-1] += fabs(partial * varInputError);
+	    }
         }
     }
 
@@ -279,6 +289,7 @@ void AD_report()
         bool replace = true;
         for (size_t i = 0; i < numDepVars; i++) {
             tolError[i] -= fabs(varOutputError[var.first][i]);
+            totalError[i] += fabs(varOutputError[var.first][i]);
             if (tolError[i] < 0.0) {
                 replace = false;
             }
@@ -296,10 +307,10 @@ void AD_report()
                   << std::scientific
                   << "  max error introduced: " << fabs(var.second)
                   << "  count: " << std::setw(10) << varCount[var.first]
-                  << "  tolerr: ";
+                  << "  totalerr: ";
         for (size_t i = 0; i < numDepVars; i++) {
             if (i > 0) { std::cout << " "; }
-            std::cout << tolError[i];           // remaining error budget(s)
+            std::cout << totalError[i];           // total error contribution 
         }
         std::cout << std::endl;
     }
