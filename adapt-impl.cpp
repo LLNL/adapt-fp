@@ -124,9 +124,7 @@ void AD_independent(AD_real &var, std::string label, std::string source)
 
 void AD_intermediate(AD_real &var, std::string label)
 {
-    if (var.isActive()) {
-        tape.registerOutput(var);
-    } else {
+    if (!var.isActive()) {
         tape.registerInput(var);
     }
     indIdxs[indCount] = var.getGradientData();
