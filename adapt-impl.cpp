@@ -139,11 +139,20 @@ void AD_intermediate(AD_real &var, std::string label, std::string source, bool i
         label = label + ":" + source;
     }
     if (isAccVar) {
-	    //std::cout << "isAccVar why > " << label << "\n";
-            accVars[label] = true;
+      accVars[label] = true;
     }
     AD_intermediate(var, label);
 }
+
+void AD_intermediate_iter(AD_real &var, std::string label, std::string source, int iter)
+{
+    if (useSourceInfo) {
+        label = label + ":" + source;
+    }
+    label = label + ": " + std::to_string(iter);
+    AD_intermediate(var, label);
+}
+
 
 void AD_dependent(AD_real &var, std::string label, double toleratedError)
 {
