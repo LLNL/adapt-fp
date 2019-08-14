@@ -122,7 +122,7 @@ void AD_independent(AD_real &var, std::string label, std::string source);
  * Register an intermediate variable.
  */
 void AD_intermediate(AD_real &var, std::string label);
-void AD_intermediate(AD_real &var, std::string label, std::string source, bool isAccVar);
+void AD_intermediate(AD_real &var, std::string label, std::string source, bool isAccVar=false);
 void AD_intermediate_iter(AD_real &var, std::string label, std::string source, int iter);
 
 /*

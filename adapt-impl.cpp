@@ -133,7 +133,7 @@ void AD_intermediate(AD_real &var, std::string label)
     indVals[indCount++] = var.value();
 }
 
-void AD_intermediate(AD_real &var, std::string label, std::string source, bool isAccVar=false)
+void AD_intermediate(AD_real &var, std::string label, std::string source, bool isAccVar)
 {
     if (useSourceInfo) {
         label = label + ":" + source;
