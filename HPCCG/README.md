@@ -1,6 +1,6 @@
 # HPCCG example
 
-HPCCG is a mini-application from the Mantevo benchmark suite ().
+HPCCG is a mini-application from the Mantevo benchmark suite (https://github.com/Mantevo/HPCCG).
 It is a simple conjugate benchmark code.
 
 The example is provided as sub-directories with Makefile for automation.
