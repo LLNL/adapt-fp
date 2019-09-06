@@ -121,7 +121,7 @@ $(TARGET): $(TEST_OBJ)
 	$(LINKER) $(CPP_OPT_FLAGS) $(ADAPTFLAGS) $(OMP_FLAGS) $(TEST_OBJ) $(LIB_PATHS) -o $(TARGET)
 
 test:
-	#./test_HPCCG 20 30 160 > adval_Ap_100_nofabs_iter.log
+	./test_HPCCG 20 30 160 > adval_Ap_100_nofabs_iter.log
 	grep -i "replace * Ap:HPCCG.cpp:135:" adval_Ap_100_nofabs_iter.log | awk -F' ' '{print $$5, $$9;}' > Apiter.csv
 	grep -i "replace * x:HPCCG.cpp:140" adval_Ap_100_nofabs_iter.log | awk -F' ' '{print $$5, $$9;}' > Xiter.csv
 	grep -i "replace * r:HPCCG.cpp:142" adval_Ap_100_nofabs_iter.log | awk -F' ' '{print $$5, $$9;}' > Riter.csv
