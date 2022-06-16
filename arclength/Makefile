@@ -1,7 +1,7 @@
 TARGETS=arclength arclength-float arclength-adapt arclength-mixed
 CXXFLAGS+=-g -O3 -Wall
 LDFLAGS=-lm
-ADAPTFLAGS=--std=c++11 -I$(CODIPACK_HOME)/include -I../ -DCODI_ZeroAdjointReverse=0
+ADAPTFLAGS=--std=c++11 -I$(CODIPACK_HOME)/include -I../ -DCODI_ReversalZeroesAdjoints=0
 
 all: $(TARGETS)
 

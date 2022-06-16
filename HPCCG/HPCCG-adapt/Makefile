@@ -66,7 +66,8 @@ USE_MPI =
 #CPP_OPT_FLAGS = -O3 -funroll-all-loops -malign-double
 CPP_OPT_FLAGS = -O3 -ftree-vectorize -ftree-vectorizer-verbose=2 -Wno-unused-result
 ADAPT_HOME=../../
-ADAPTFLAGS=--std=c++11 -I$(CODIPACK_HOME)/include -I$(ADAPT_HOME) -DCODI_ZeroAdjointReverse=0 -DCODI_DisableAssignOptimization=1
+ADAPTFLAGS=--std=c++11 -I$(CODIPACK_HOME)/include -I$(ADAPT_HOME) -DCODI_ReversalZeroesAdjoints=0 -DCODI_CopyOptimization=1
+
 
 #
 # 4) MPI library:

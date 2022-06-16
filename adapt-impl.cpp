@@ -34,10 +34,10 @@
 #include "ToolConfig.cpp"
 
 // "tape" for recording operations
-static AD_real::TapeType& tape = AD_real::getGlobalTape();
+static AD_real::Tape& tape = AD_real::getTape();
 
 // gradient index data type
-typedef AD_real::GradientData AD_index;
+typedef AD_real::Identifier AD_index;
 
 // total number of independent/intermediate variables
 static unsigned long indCount = 0;
@@ -110,7 +110,7 @@ void AD_independent(AD_real &var, std::string label)
     }
 
     tape.registerInput(var);
-    indIdxs[indCount] = var.getGradientData();
+    indIdxs[indCount] = var.getIdentifier();
     indLabels[indCount] = label;
     indVals[indCount++] = var.value();
 }
@@ -125,10 +125,7 @@ void AD_independent(AD_real &var, std::string label, std::string source)
 
 void AD_intermediate(AD_real &var, std::string label)
 {
-    if (!var.isActive()) {
-        tape.registerInput(var);
-    }
-    indIdxs[indCount] = var.getGradientData();
+    indIdxs[indCount] = var.getIdentifier();
     indLabels[indCount] = label;
     indVals[indCount++] = var.value();
 }
