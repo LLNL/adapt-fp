@@ -20,9 +20,17 @@ void destroyMatrix(HPC_Sparse_Matrix * &A)
   {
     delete [] A->list_of_vals;
   }
+  if(A->list_of_vals_f)
+  {
+    delete [] A->list_of_vals_f;
+  }
   if(A->ptr_to_vals_in_row !=0)
   {
     delete [] A->ptr_to_vals_in_row;
+  }
+  if(A->ptr_to_vals_in_row_f !=0)
+  {
+    delete [] A->ptr_to_vals_in_row_f;
   }
   if(A->list_of_inds)
   {
@@ -36,7 +44,10 @@ void destroyMatrix(HPC_Sparse_Matrix * &A)
   {
     delete [] A->ptr_to_diags;
   }
-
+  if(A->ptr_to_diags_f)
+  {
+    delete [] A->ptr_to_diags_f;
+  }
 #ifdef USING_MPI
   if(A->external_index)
   {

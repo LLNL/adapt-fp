@@ -89,8 +89,8 @@ int HPC_sparsemv( HPC_Sparse_Matrix *A,
   for (int i=0; i< nrow; i++)
     {
       float sum = 0.0;
-      const double * const cur_vals = 
-     (const double * const) A->ptr_to_vals_in_row[i];
+      const float * const cur_vals = 
+     (const float * const) A->ptr_to_vals_in_row_f[i];
 
       const int    * const cur_inds = 
      (const int    * const) A->ptr_to_inds_in_row[i];

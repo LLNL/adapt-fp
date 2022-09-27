@@ -49,8 +49,10 @@ struct HPC_Sparse_Matrix_STRUCT {
   int local_nnz;
   int  * nnz_in_row;
   double ** ptr_to_vals_in_row;
+  float ** ptr_to_vals_in_row_f;
   int ** ptr_to_inds_in_row;
   double ** ptr_to_diags;
+  float ** ptr_to_diags_f;
 
 #ifdef USING_MPI
   int num_external;
@@ -66,6 +68,7 @@ struct HPC_Sparse_Matrix_STRUCT {
 #endif
 
   double *list_of_vals;   //needed for cleaning up memory
+  float *list_of_vals_f;   //needed for cleaning up memory
   int *list_of_inds;      //needed for cleaning up memory
 
 };

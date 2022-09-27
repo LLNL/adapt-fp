@@ -83,8 +83,10 @@ void generate_matrix(int nx, int ny, int nz, HPC_Sparse_Matrix **A, double **x, 
   // Allocate arrays that are of length local_nrow
   (*A)->nnz_in_row = new int[local_nrow];
   (*A)->ptr_to_vals_in_row = new double*[local_nrow];
+  (*A)->ptr_to_vals_in_row_f = new float*[local_nrow];
   (*A)->ptr_to_inds_in_row = new int   *[local_nrow];
   (*A)->ptr_to_diags       = new double*[local_nrow];
+  (*A)->ptr_to_diags_f       = new float*[local_nrow];
 
   *x = new double[local_nrow];
   *b = new double[local_nrow];
@@ -93,9 +95,11 @@ void generate_matrix(int nx, int ny, int nz, HPC_Sparse_Matrix **A, double **x, 
 
   // Allocate arrays that are of length local_nnz
   (*A)->list_of_vals = new double[local_nnz];
+  (*A)->list_of_vals_f = new float[local_nnz];
   (*A)->list_of_inds = new int   [local_nnz];
 
   double * curvalptr = (*A)->list_of_vals;
+  float * curvalptr_f = (*A)->list_of_vals_f;
   int * curindptr = (*A)->list_of_inds;
 
   long long nnzglobal = 0;
@@ -106,6 +110,7 @@ void generate_matrix(int nx, int ny, int nz, HPC_Sparse_Matrix **A, double **x, 
 	int currow = start_row+iz*nx*ny+iy*nx+ix;
 	int nnzrow = 0;
 	(*A)->ptr_to_vals_in_row[curlocalrow] = curvalptr;
+	(*A)->ptr_to_vals_in_row_f[curlocalrow] = curvalptr_f;
 	(*A)->ptr_to_inds_in_row[curlocalrow] = curindptr;
 	for (int sz=-1; sz<=1; sz++) {
 	  for (int sy=-1; sy<=1; sy++) {
@@ -118,10 +123,13 @@ void generate_matrix(int nx, int ny, int nz, HPC_Sparse_Matrix **A, double **x, 
                 if (!use_7pt_stencil || (sz*sz+sy*sy+sx*sx<=1)) { // This logic will skip over point that are not part of a 7-pt stencil
                   if (curcol==currow) {
 		    (*A)->ptr_to_diags[curlocalrow] = curvalptr;
+		    (*A)->ptr_to_diags_f[curlocalrow] = curvalptr_f;
 		    *curvalptr++ = 27.0;
+		    *curvalptr_f++ = 27.0;
 		  }
 		  else {
 		    *curvalptr++ = -1.0;
+		    *curvalptr_f++ = -1.0;
                   }
 		  *curindptr++ = curcol;
 		  nnzrow++;
